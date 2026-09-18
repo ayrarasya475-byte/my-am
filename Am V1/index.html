@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes,viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#0a0518">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>FG-DRAX — Alight Motion Premium</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ BOOT SCREEN ============ -->
+<div id="boot">
+  <div class="boot-inner">
+    <div class="boot-logo">FG-DRAX</div>
+    <div class="boot-sub">ALIGHT MOTION PREMIUM</div>
+    <div class="boot-bar"><div class="boot-fill"></div></div>
+    <div class="boot-msg" id="bootMsg">Memuat sistem...</div>
+  </div>
+</div>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="login" class="screen hidden">
+  <div class="login-card">
+    <div class="login-icon"><i class="fa-solid fa-bolt"></i></div>
+    <h1 class="login-title">FG<span>-DRAX</span></h1>
+    <p class="login-sub">Masuk untuk melanjutkan</p>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="inEmail" placeholder="email@example.com" autocomplete="email" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="inPass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <button class="btn btn-primary" id="btnLogin">
+      <i class="fa-solid fa-arrow-right-to-bracket"></i>
+      <span>MASUK</span>
+    </button>
+
+    <div class="alert alert-error hidden" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ============ BAN SCREEN ============ -->
+<div id="ban" class="screen hidden">
+  <div class="ban-icon"><i class="fa-solid fa-ban"></i></div>
+  <h1 class="ban-title">Akun Diblokir</h1>
+  <p class="ban-text" id="banText">Anda melanggar aturan penggunaan.</p>
+  <div class="ban-timer" id="banTimer">24:00:00</div>
+  <p class="ban-hint">Blokir dibuka otomatis setelah waktu habis.</p>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div id="app" class="hidden">
+
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="hdr-left">
+      <div class="al-logo"><i class="fa-solid fa-bolt"></i></div>
+      <div class="brand">
+        <h1>FG-DRAX</h1>
+        <p>
+          <span id="uName">User</span>
+          <span class="badge badge-user" id="uRole">USER</span>
+        </p>
+      </div>
+    </div>
+    <button class="icon-btn icon-danger" id="btnLogout" title="Keluar">
+      <i class="fa-solid fa-right-from-bracket"></i>
+    </button>
+  </header>
+
+  <!-- ===== PAGE: HOME ===== -->
+  <section class="page" id="page-home">
+    <div class="hero">
+      <div class="hero-logo">FG-DRAX</div>
+      <h2>ALIGHT MOTION PREMIUM</h2>
+      <p>Gratis 1 tahun, tanpa biaya apapun.</p>
+      <button class="hero-btn" data-goto="am">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        MULAI AKTIVASI
+      </button>
+      <button class="hero-btn2" id="btnGuide">LIHAT PANDUAN</button>
+    </div>
+
+    <div class="grid-2">
+      <div class="stat">
+        <div>
+          <div class="stat-label">Total Email</div>
+          <div class="stat-value" id="sEmail">0</div>
+        </div>
+        <div class="stat-icon purple"><i class="fa-regular fa-envelope"></i></div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-label">AM Sukses</div>
+          <div class="stat-value green" id="sOk">0</div>
+        </div>
+        <div class="stat-icon green"><i class="fa-solid fa-check"></i></div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-label">AM Gagal</div>
+          <div class="stat-value red" id="sFail">0</div>
+        </div>
+        <div class="stat-icon red"><i class="fa-solid fa-xmark"></i></div>
+      </div>
+      <div class="stat">
+        <div>
+          <div class="stat-label">API Keys</div>
+          <div class="stat-value amber" id="sApi">0</div>
+        </div>
+        <div class="stat-icon amber"><i class="fa-solid fa-key"></i></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Sesi Aktif</span>
+      </div>
+      <div class="row-between">
+        <span class="muted">Durasi</span>
+        <span class="mono" id="sessDur">00:00:00</span>
+      </div>
+      <div class="row-between">
+        <span class="muted">Role</span>
+        <span class="bold" id="sessRole">User</span>
+      </div>
+      <div class="row-between">
+        <span class="muted">Status</span>
+        <span class="green">● Aktif</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: RIWAYAT ===== -->
+  <section class="page hidden" id="page-riwayat">
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-regular fa-clock"></i>
+        <span>Riwayat Aktivasi</span>
+        <button class="chip" id="btnClearHistory">
+          <i class="fa-regular fa-trash-can"></i> Hapus
+        </button>
+      </div>
+      <div id="historyList"></div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: AM ===== -->
+  <section class="page hidden" id="page-am">
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-solid fa-bolt"></i>
+        <span>Auto Activation</span>
+      </div>
+      <p class="hint">Masukkan email target. Sistem akan mengirim magic link otomatis.</p>
+      <input type="email" class="input" id="amEmail" placeholder="email@example.com">
+      <button class="btn btn-primary" id="btnAm">
+        <i class="fa-solid fa-play"></i>
+        <span>KIRIM MAGIC LINK</span>
+      </button>
+      <div class="status hidden" id="amStatus"></div>
+      <details class="debug-wrap">
+        <summary>Debug Log</summary>
+        <pre class="debug" id="amDebug"></pre>
+      </details>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-solid fa-check-double"></i>
+        <span>Verifikasi Manual</span>
+      </div>
+      <p class="hint">Copy magic link dari email Alight Motion, lalu paste di sini.</p>
+      <input type="email" class="input" id="vEmail" placeholder="email@example.com">
+      <textarea class="input" id="vLink" placeholder="Paste magic link di sini..." rows="3"></textarea>
+      <button class="btn btn-primary" id="btnVerify">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>VERIFIKASI</span>
+      </button>
+      <div class="status hidden" id="vStatus"></div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: INBOX ===== -->
+  <section class="page hidden" id="page-inbox">
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-regular fa-envelope"></i>
+        <span>Generator Email</span>
+      </div>
+      <div class="row">
+        <input type="text" class="input" id="ePrefix" placeholder="prefix">
+        <span class="muted">@</span>
+        <span class="domain-chip">lnovic.com</span>
+      </div>
+      <button class="btn btn-primary" id="btnGen">
+        <i class="fa-regular fa-envelope"></i>
+        <span>GENERATE EMAIL</span>
+      </button>
+      <div class="email-box hidden" id="curBox">
+        <code id="curEmail"></code>
+        <button class="icon-btn" id="btnCopyEmail" title="Copy">
+          <i class="fa-regular fa-copy"></i>
+        </button>
+        <button class="chip chip-auto" id="btnAutoAm">
+          <i class="fa-solid fa-bolt"></i> Auto AM
+        </button>
+      </div>
+      <div class="row-between mt">
+        <span class="muted" id="inboxCount">0 pesan</span>
+        <span class="muted" id="syncState">Idle</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-regular fa-inbox"></i>
+        <span>Inbox</span>
+        <button class="chip" id="btnRefresh">
+          <i class="fa-solid fa-rotate"></i> Refresh
+        </button>
+      </div>
+      <div id="inboxList"></div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: LOG ===== -->
+  <section class="page hidden" id="page-log">
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Log Email</span>
+        <button class="chip" id="btnClearLog">
+          <i class="fa-regular fa-trash-can"></i> Hapus
+        </button>
+      </div>
+      <div id="logList"></div>
+    </div>
+  </section>
+
+  <!-- ===== PAGE: SETELAN ===== -->
+  <section class="page hidden" id="page-setelan">
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-solid fa-key"></i>
+        <span>List API</span>
+      </div>
+      <p class="hint">Buat API key untuk menghubungkan ke web Anda. Maksimal 2 API.</p>
+      <button class="btn btn-primary" id="btnCreateApi">
+        <i class="fa-solid fa-plus"></i>
+        <span>BUAT API BARU</span>
+      </button>
+      <div id="apiList" class="mt"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-solid fa-sliders"></i>
+        <span>Preferensi</span>
+      </div>
+      <div class="row-between py">
+        <div>
+          <div class="bold-sm">Auto Refresh Inbox</div>
+          <div class="muted-xs">Update tiap 5 detik</div>
+        </div>
+        <label class="switch"><input type="checkbox" id="tglAuto" checked><span class="slider"></span></label>
+      </div>
+      <div class="row-between py">
+        <div>
+          <div class="bold-sm">Musik Latar</div>
+          <div class="muted-xs">Putar musik saat aplikasi aktif</div>
+        </div>
+        <label class="switch"><input type="checkbox" id="tglMusic" checked><span class="slider"></span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>Tentang</span>
+      </div>
+      <div class="about">
+        <div class="bold">FG-DRAX <span class="muted">v4.0</span></div>
+        <p>Sistem verifikasi akun Alight Motion via magic link.</p>
+      </div>
+    </div>
+
+    <div class="card hidden" id="adminCard">
+      <div class="card-head">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>Admin</span>
+      </div>
+      <a href="admin.html" class="btn btn-primary">
+        <i class="fa-solid fa-user-shield"></i>
+        <span>BUKA PANEL ADMIN</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-tab="home">
+      <i class="fa-solid fa-house"></i>
+      <span>Beranda</span>
+    </button>
+    <button class="nav-btn" data-tab="riwayat">
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <span>Riwayat</span>
+    </button>
+    <button class="nav-center" data-tab="am">
+      <i class="fa-solid fa-bolt"></i>
+    </button>
+    <button class="nav-btn" data-tab="inbox">
+      <i class="fa-regular fa-envelope"></i>
+      <span>Inbox</span>
+    </button>
+    <button class="nav-btn" data-tab="setelan">
+      <i class="fa-solid fa-gear"></i>
+      <span>Setelan</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ============ MODAL GUIDE ============ -->
+<div class="modal" id="mGuide">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title"><i class="fa-solid fa-book"></i> Panduan</div>
+      <button class="modal-close" data-close="mGuide"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="guide">
+      <p><strong>1. Buat Email</strong><br>Tab Inbox → Isi prefix → Generate Email</p>
+      <p><strong>2. Kirim Magic Link</strong><br>Tab AM → Masukkan email target → Kirim</p>
+      <p><strong>3. Cek Email</strong><br>Tab Inbox → Tunggu pesan → Copy link Alight Motion</p>
+      <p><strong>4. Verifikasi</strong><br>Tab AM → Paste link → Verifikasi</p>
+      <p><strong>5. Selesai</strong><br>Buka Alight Motion → Login → VIP Pro aktif 1 tahun</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL EMAIL ============ -->
+<div class="modal" id="mEmail">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title" id="mdSubject">Subject</div>
+      <button class="modal-close" data-close="mEmail"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="muted-sm mb" id="mdFrom">Dari: -</div>
+    <div class="email-body" id="mdBody">Isi email...</div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- HIDDEN MUSIC -->
+<div id="ytWrap"><div id="ytPlayer"></div></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
